@@ -1,14 +1,14 @@
-# stactools-ephemeral
+# stactools-noaa-sst
 
-- Name: ephemeral
-- Package: `stactools.ephemeral`
-- PyPI: https://pypi.org/project/stactools-ephemeral/
+- Name: noaa-sst
+- Package: `stactools.noaa_sst`
+- PyPI: https://pypi.org/project/stactools-noaa-sst/
 - Owner: @githubusername
 - Dataset homepage: http://example.com
 - STAC extensions used:
   - [proj](https://github.com/stac-extensions/projection/)
 - Extra fields:
-  - `ephemeral:custom`: A custom attribute
+  - `noaa-sst:custom`: A custom attribute
 
 A short description of the package and its usage.
 
@@ -24,7 +24,7 @@ A short description of the package and its usage.
 Description of the command line functions
 
 ```bash
-$ stac ephemeral create-item source destination
+$ stac noaa-sst create-item source destination
 ```
 
-Use `stac ephemeral --help` to see all subcommands and options.
+Use `stac noaa-sst --help` to see all subcommands and options.
