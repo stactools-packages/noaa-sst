@@ -62,7 +62,12 @@ class CommandsTest(CliTestCase):
         with TemporaryDirectory() as tmp_dir:
             destination = os.path.join(tmp_dir, "item.json")
             result = self.run_command([
-                "noaa-sst", "create-item", path, "mock__sst_cog.tif", "mock__sif_cog.tif", destination,
+                "noaa-sst",
+                "create-item",
+                path,
+                "mock__sst_cog.tif",
+                "mock__sif_cog.tif",
+                destination,
             ])
             self.assertEqual(result.exit_code,
                              0,

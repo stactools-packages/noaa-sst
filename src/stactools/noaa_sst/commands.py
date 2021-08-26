@@ -15,6 +15,7 @@ def create_noaasst_command(cli):
     )
     def noaasst():
         pass
+
     @noaasst.command(
         "retrieve-nc",
         short_help="Downloads a NOAA CoralTemp netcdf file",
@@ -23,10 +24,10 @@ def create_noaasst_command(cli):
     def retrieve_nc_command(source: str) -> None:
         """Downloads a NOAA CoralTemp netcdf file given its FTP address
         Args:
-            source (str): The ftp address of the netcdf 
+            source (str): The ftp address of the netcdf
         """
         cog.retrieve_nc(source)
-        
+
     @noaasst.command(
         "create-cog",
         short_help="Creates 2 COGs from a NOAA CoralTemp netcdf file",
@@ -38,7 +39,6 @@ def create_noaasst_command(cli):
         Args:
             source (str): An HREF for the NOAA CoralTemp netcdf file
             destination (str): An HREF for the Collection JSON
-            
         """
         cog.create_cog(source, destination)
 
@@ -49,7 +49,6 @@ def create_noaasst_command(cli):
     @click.argument("destination")
     def create_collection_command(destination: str):
         """Creates a STAC Collection
-
         Args:
             destination (str): An HREF for the Collection JSON
         """
@@ -66,7 +65,8 @@ def create_noaasst_command(cli):
     @click.argument("sst_cog_href")
     @click.argument("sif_cog_href")
     @click.argument("destination")
-    def create_item_command(nc_href: str, sst_cog_href: str, sif_cog_href: str, destination: str) -> None:
+    def create_item_command(nc_href: str, sst_cog_href: str, sif_cog_href: str,
+                            destination: str) -> None:
         """Creates a STAC Item
         Args:
             nc_href (str): HREF of the netcdf associated with the Item
