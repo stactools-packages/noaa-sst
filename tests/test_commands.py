@@ -33,7 +33,9 @@ class CommandsTest(CliTestCase):
             self.assertEqual(result.exit_code,
                              0,
                              msg="\n{}".format(result.output))
-
+            print(os.listdir(tmp_dir))
+            print("****************")
+            print(path)
             cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
             self.assertEqual(len(cogs), 2)
 
@@ -62,7 +64,7 @@ class CommandsTest(CliTestCase):
         with TemporaryDirectory() as tmp_dir:
             destination = os.path.join(tmp_dir, "item.json")
             result = self.run_command([
-                "noaa-sst",
+                "noaasst",
                 "create-item",
                 path,
                 "mock__sst_cog.tif",
@@ -77,6 +79,4 @@ class CommandsTest(CliTestCase):
             self.assertEqual(len(jsons), 1)
 
             item = pystac.read_file(destination)
-            self.assertEqual(item.id, "seabed-2030-gebco-2020")
-
             item.validate()

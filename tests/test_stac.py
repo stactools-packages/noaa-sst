@@ -4,7 +4,7 @@ import unittest
 
 from tests import test_data
 
-from stactools.seabed_2030 import stac, cog
+from stactools.noaa_sst import stac, cog
 
 
 class StacTest(unittest.TestCase):
@@ -14,7 +14,7 @@ class StacTest(unittest.TestCase):
         collection.set_self_href("")
 
         # Check that it has the expected ID
-        self.assertEqual(collection.id, "seabed-2030")
+        self.assertEqual(collection.id, "noaa-sst")
 
         # Validate
         collection.validate()
@@ -37,12 +37,10 @@ class StacTest(unittest.TestCase):
                 cogs = [
                     p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")
                 ]
-                self.assertEqual(len(cogs), 1)
+                self.assertEqual(len(cogs), 2)
 
-                item = stac.create_item(path, cog_path)
-
-                # Check the id
-                self.assertEqual(item.id, "seabed-2030-gebco-2020")
+                item = stac.create_item(path, 'sst_' + cog_path,
+                                        'sif_' + cog_path)
 
                 # Validate
                 item.validate()
