@@ -33,9 +33,6 @@ class CommandsTest(CliTestCase):
             self.assertEqual(result.exit_code,
                              0,
                              msg="\n{}".format(result.output))
-            print(os.listdir(tmp_dir))
-            print("****************")
-            print(path)
             cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
             self.assertEqual(len(cogs), 2)
 
