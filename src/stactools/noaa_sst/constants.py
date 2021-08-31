@@ -5,7 +5,7 @@ from pystac import Provider, ProviderRole, Link
 NOAA_SST_ID = "noaa-sst"
 SST_EPSG = 4326
 SST_CRS = CRS.from_epsg(SST_EPSG)
-LICENSE = "Public Domain"
+LICENSE = "CC-PDDC"
 lic_link = "https://coralreefwatch.noaa.gov/satellite/docs/recommendations_crw_citation.php"
 LICENSE_LINK = Link(rel="license",
                     target=lic_link,
