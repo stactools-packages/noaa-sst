@@ -21,6 +21,7 @@ from stactools.noaa_sst.constants import (
     TITLE,
     DESCRIPTION,
     LICENSE,
+    LICENSE_LINK,
     SST_EPSG,
 )
 from netCDF4 import Dataset
@@ -55,7 +56,7 @@ def create_collection() -> Collection:
         catalog_type=CatalogType.RELATIVE_PUBLISHED,
     )
 
-    return collection
+    collection.add_link(LICENSE_LINK)
 
     return collection
 
