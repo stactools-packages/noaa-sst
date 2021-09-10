@@ -1,5 +1,7 @@
 from datetime import datetime
 import logging
+from pystac.extensions.item_assets import AssetDefinition, ItemAssetsExtension
+from pystac.extensions.projection import ProjectionExtension
 
 from pystac import (
     Collection,
@@ -11,7 +13,6 @@ from pystac import (
     CatalogType,
     MediaType,
 )
-from pystac.extensions.projection import ProjectionExtension
 
 from stactools.noaa_sst.constants import (
     NOAA_SST_ID,
@@ -56,18 +57,39 @@ def create_collection() -> Collection:
         catalog_type=CatalogType.RELATIVE_PUBLISHED,
     )
 
+    item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
+
+    item_assets.item_assets = {
+        "sst_cog":
+        AssetDefinition({
+            "type":
+            MediaType.COG,
+            "roles": ["data"],
+            "description":
+            "COG containing 5km Sea Surface Temperature information"
+        }),
+        "sif_cog":
+        AssetDefinition({
+            "type":
+            MediaType.COG,
+            "roles": ["data"],
+            "description":
+            "COG containing 5km Sea Ice Fraction information"
+        })
+    }
+
     collection.add_link(LICENSE_LINK)
 
     return collection
 
 
 def create_item(nc_href: str, sst_cog_href: str, sif_cog_href: str) -> Item:
-    """Create a STAC Item
-    Collect metadata from a NOAA-SST netcdf file to create the Item
+    """Creates a STAC Item
     Args:
-        nc_href (str): The HREF pointing to the NOAA netcdf file
-        cog_href (str): The HREF pointing to the associated asset COG. The COG should
-        be created in advance using `cog.create_cog`
+        nc_href (str): HREF of the netcdf associated with the Item
+        sst_cog_href (str): An HREF for the associated sea surface temp COG asset
+        sif_cog_href (str): An HREF for the associated sea ice fraction COG asset
+        The COG should be created in advance using `cog.create_cog`
     Returns:
         Item: STAC Item object
     """
@@ -113,12 +135,6 @@ def create_item(nc_href: str, sst_cog_href: str, sif_cog_href: str) -> Item:
         0.0,
         -y_cellsize,
     ]
-    # It is a good idea to include proj attributes to optimize for libs like stac-vrt
-    proj_attrs = ProjectionExtension.ext(item, add_if_missing=True)
-    proj_attrs.epsg = 4326
-    proj_attrs.bbox = [-180, 90, 180, -90]
-    proj_attrs.shape = [1, 1]  # Raster shape
-    proj_attrs.transform = [-180, 360, 0, 90, 0, 180]  # Raster GeoTransform
 
     # Add an asset to the item (COG for example)
     item.add_asset(

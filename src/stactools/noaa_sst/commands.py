@@ -55,6 +55,7 @@ def create_noaasst_command(cli):
         collection = stac.create_collection()
 
         collection.set_self_href(destination)
+        collection.validate()
 
         collection.save_object()
 
@@ -71,10 +72,11 @@ def create_noaasst_command(cli):
         Args:
             nc_href (str): HREF of the netcdf associated with the Item
             sst_cog_href (str): An HREF for the associated sea surface temp COG asset
-            sst_cog_href (str): An HREF for the associated sea ice fraction COG asset
+            sif_cog_href (str): An HREF for the associated sea ice fraction COG asset
             destination (str): An HREF for the STAC Collection
         """
         item = stac.create_item(nc_href, sst_cog_href, sif_cog_href)
+        item.validate()
         item.save_object(dest_href=destination)
 
     return noaasst

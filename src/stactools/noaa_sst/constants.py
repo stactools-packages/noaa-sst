@@ -6,12 +6,12 @@ NOAA_SST_ID = "noaa-sst"
 SST_EPSG = 4326
 SST_CRS = CRS.from_epsg(SST_EPSG)
 LICENSE = "proprietary"
-lic_link = "https://github.com/stactools-packages/noaa-sst/tree/main/src/stactools/noaa_sst/license"
-"/data-license.txt"
+lic_link = """"https://github.com/stactools-packages/noaa-sst/tree/main/src/stactools/noaa_sst/license
+/data-license.txt"""
 LICENSE_LINK = Link(rel="license",
                     target=lic_link,
                     title="Public Domain License - NOAA")
-SPATIAL_EXTENT = [-180.0, 90.0, 180.0, -90.0]
+SPATIAL_EXTENT = [-180.0, -90.0, 180.0, 90.0]
 TEMPORAL_EXTENT = [
     datetime(1985, 1, 1),
     None,
